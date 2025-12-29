@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { User, Mail, Phone, Lock, Loader2, AlertCircle, Heart, Calendar, Droplet, User2 } from 'lucide-react';
 
 const VALIDATION_RULES = {
     username: {
@@ -323,200 +324,306 @@ export default function SignupPage() {
     };
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-[#40E0D0] to-[#2CC7B7] flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-2xl transition-shadow duration-200">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-cyan-50 flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+                <div className="absolute top-40 right-10 w-72 h-72 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+                <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+            </div>
+
+            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 p-10 w-full max-w-2xl relative z-50 transition-all duration-300 hover:shadow-3xl">
                 {currentStep === 'signup' ? (
                     <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <h2 className="text-3xl font-bold text-gray-800 mb-2">Create Patient Account</h2>
-                            <p className="text-gray-600">Fill in the details below to get started</p>
+                        <div className="text-center mb-10">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-cyan-500 to-blue-600 rounded-2xl mb-4 shadow-lg">
+                                <Heart className="text-white" size={32} strokeWidth={2.5} />
+                            </div>
+                            <h2 className="text-4xl font-bold bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">Create Account</h2>
+                            <p className="text-gray-600 text-sm">Join us to start your healthcare journey</p>
                         </div>
 
-                        <form onSubmit={handleSignupSubmit} className="space-y-6">
+                        <form onSubmit={handleSignupSubmit} className="space-y-5">
                             <div className="space-y-2">
-                                <input
-                                    type="text"
-                                    name="username"
-                                    placeholder="Username"
-                                    value={formData.username}
-                                    onChange={handleInputChange}
-                                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 transition-all duration-200 font-medium ${errors.username
-                                        ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50'
-                                        : 'border-gray-200 focus:border-[#40E0D0] focus:ring-[#40E0D0]/20 bg-white'
-                                        }`}
-                                    required
-                                />
-                                {errors.username && (
-                                    <p className="text-red-500 text-sm font-medium">{errors.username}</p>
-                                )}
-                            </div>
-
-                            <div className="space-y-2">
-                                <input
-                                    type="tel"
-                                    name="phone"
-                                    placeholder="Phone Number"
-                                    value={formData.phone}
-                                    onChange={handleInputChange}
-                                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 transition-all duration-200 font-medium ${errors.phone
-                                        ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50'
-                                        : 'border-gray-200 focus:border-[#40E0D0] focus:ring-[#40E0D0]/20 bg-white'
-                                        }`}
-                                    required
-                                />
-                                {errors.phone && (
-                                    <p className="text-red-500 text-sm font-medium">{errors.phone}</p>
-                                )}
-                            </div>
-
-                            <div className="space-y-2">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email Address"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 transition-all duration-200 font-medium ${errors.email
-                                        ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50'
-                                        : 'border-gray-200 focus:border-[#40E0D0] focus:ring-[#40E0D0]/20 bg-white'
-                                        }`}
-                                    required
-                                />
-                                {errors.email && (
-                                    <p className="text-red-500 text-sm font-medium">{errors.email}</p>
-                                )}
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <input
-                                        type="number"
-                                        name="age"
-                                        placeholder="Age"
-                                        value={formData.age}
-                                        onChange={handleInputChange}
-                                        className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 transition-all duration-200 font-medium ${errors.age
-                                            ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50'
-                                            : 'border-gray-200 focus:border-[#40E0D0] focus:ring-[#40E0D0]/20 bg-white'
-                                            }`}
-                                        min="1"
-                                        max="150"
-                                        required
-                                    />
-                                    {errors.age && (
-                                        <p className="text-red-500 text-sm font-medium">{errors.age}</p>
-                                    )}
-                                </div>
-                                <div className="space-y-2">
-                                    <select
-                                        name="gender"
-                                        value={formData.gender}
-                                        onChange={handleInputChange}
-                                        className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 transition-all duration-200 font-medium ${errors.gender
-                                            ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50'
-                                            : 'border-gray-200 focus:border-[#40E0D0] focus:ring-[#40E0D0]/20 bg-white'
-                                            }`}
-                                        required
-                                    >
-                                        <option value="">Select Gender</option>
-                                        <option value="M">Male</option>
-                                        <option value="F">Female</option>
-                                    </select>
-                                    {errors.gender && (
-                                        <p className="text-red-500 text-sm font-medium">{errors.gender}</p>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <select
-                                        name="bloodgroup"
-                                        value={formData.bloodgroup}
-                                        onChange={handleInputChange}
-                                        className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 transition-all duration-200 font-medium ${errors.bloodgroup
-                                            ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50'
-                                            : 'border-gray-200 focus:border-[#40E0D0] focus:ring-[#40E0D0]/20 bg-white'
-                                            }`}
-                                        required
-                                    >
-                                        <option value="">Blood Group</option>
-                                        {BLOOD_GROUPS.map(group => (
-                                            <option key={group} value={group}>{group}</option>
-                                        ))}
-                                    </select>
-                                    {errors.bloodgroup && (
-                                        <p className="text-red-500 text-sm font-medium">{errors.bloodgroup}</p>
-                                    )}
-                                </div>
-                                <div className="space-y-2">
+                                <label htmlFor="username" className="block text-sm font-semibold text-gray-700">Username</label>
+                                <div className="relative group">
+                                    <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                                        <User className={`transition-colors duration-200 ${errors.username ? 'text-red-500' : 'text-gray-400 group-focus-within:text-cyan-500'}`} size={20} />
+                                    </div>
                                     <input
                                         type="text"
+                                        id="username"
+                                        name="username"
+                                        placeholder="Choose a username"
+                                        value={formData.username}
+                                        onChange={handleInputChange}
+                                        className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-2xl focus:ring-4 transition-all duration-200 font-medium bg-white text-gray-800 placeholder:text-gray-400 ${errors.username
+                                            ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                            : 'border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 hover:border-gray-300'
+                                            }`}
+                                        required
+                                    />
+                                </div>
+                                {errors.username && (
+                                    <div className="flex items-center gap-2 text-red-600 text-sm font-medium animate-in slide-in-from-top-1 duration-200">
+                                        <AlertCircle size={16} />
+                                        <span>{errors.username}</span>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-700">Phone Number</label>
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                                            <Phone className={`transition-colors duration-200 ${errors.phone ? 'text-red-500' : 'text-gray-400 group-focus-within:text-cyan-500'}`} size={20} />
+                                        </div>
+                                        <input
+                                            type="tel"
+                                            id="phone"
+                                            name="phone"
+                                            placeholder="10-digit number"
+                                            value={formData.phone}
+                                            onChange={handleInputChange}
+                                            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-2xl focus:ring-4 transition-all duration-200 font-medium bg-white text-gray-800 placeholder:text-gray-400 ${errors.phone
+                                                ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                                : 'border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 hover:border-gray-300'
+                                                }`}
+                                            required
+                                        />
+                                    </div>
+                                    {errors.phone && (
+                                        <div className="flex items-center gap-2 text-red-600 text-sm font-medium animate-in slide-in-from-top-1 duration-200">
+                                            <AlertCircle size={14} />
+                                            <span>{errors.phone}</span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="space-y-2">
+                                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700">Email Address</label>
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                                            <Mail className={`transition-colors duration-200 ${errors.email ? 'text-red-500' : 'text-gray-400 group-focus-within:text-cyan-500'}`} size={20} />
+                                        </div>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            placeholder="your@email.com"
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-2xl focus:ring-4 transition-all duration-200 font-medium bg-white text-gray-800 placeholder:text-gray-400 ${errors.email
+                                                ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                                : 'border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 hover:border-gray-300'
+                                                }`}
+                                            required
+                                        />
+                                    </div>
+                                    {errors.email && (
+                                        <div className="flex items-center gap-2 text-red-600 text-sm font-medium animate-in slide-in-from-top-1 duration-200">
+                                            <AlertCircle size={14} />
+                                            <span>{errors.email}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label htmlFor="age" className="block text-sm font-semibold text-gray-700">Age</label>
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                                            <Calendar className={`transition-colors duration-200 ${errors.age ? 'text-red-500' : 'text-gray-400 group-focus-within:text-cyan-500'}`} size={20} />
+                                        </div>
+                                        <input
+                                            type="number"
+                                            id="age"
+                                            name="age"
+                                            placeholder="Age"
+                                            value={formData.age}
+                                            onChange={handleInputChange}
+                                            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-2xl focus:ring-4 transition-all duration-200 font-medium bg-white text-gray-800 placeholder:text-gray-400 ${errors.age
+                                                ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                                : 'border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 hover:border-gray-300'
+                                                }`}
+                                            min="1"
+                                            max="150"
+                                            required
+                                        />
+                                    </div>
+                                    {errors.age && (
+                                        <div className="flex items-center gap-2 text-red-600 text-sm font-medium animate-in slide-in-from-top-1 duration-200">
+                                            <AlertCircle size={14} />
+                                            <span>{errors.age}</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="gender" className="block text-sm font-semibold text-gray-700">Gender</label>
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            <User2 className={`transition-colors duration-200 ${errors.gender ? 'text-red-500' : 'text-gray-400 group-focus-within:text-cyan-500'}`} size={20} />
+                                        </div>
+                                        <select
+                                            id="gender"
+                                            name="gender"
+                                            value={formData.gender}
+                                            onChange={handleInputChange}
+                                            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-2xl focus:ring-4 transition-all duration-200 font-medium bg-white text-gray-800 appearance-none ${errors.gender
+                                                ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                                : 'border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 hover:border-gray-300'
+                                                }`}
+                                            required
+                                        >
+                                            <option value="">Select Gender</option>
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
+                                        </select>
+                                    </div>
+                                    {errors.gender && (
+                                        <div className="flex items-center gap-2 text-red-600 text-sm font-medium animate-in slide-in-from-top-1 duration-200">
+                                            <AlertCircle size={14} />
+                                            <span>{errors.gender}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label htmlFor="bloodgroup" className="block text-sm font-semibold text-gray-700">Blood Group</label>
+                                    <div className="relative group">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                            <Droplet className={`transition-colors duration-200 ${errors.bloodgroup ? 'text-red-500' : 'text-gray-400 group-focus-within:text-cyan-500'}`} size={20} />
+                                        </div>
+                                        <select
+                                            id="bloodgroup"
+                                            name="bloodgroup"
+                                            value={formData.bloodgroup}
+                                            onChange={handleInputChange}
+                                            className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-2xl focus:ring-4 transition-all duration-200 font-medium bg-white text-gray-800 appearance-none ${errors.bloodgroup
+                                                ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                                : 'border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 hover:border-gray-300'
+                                                }`}
+                                            required
+                                        >
+                                            <option value="">Select Blood Group</option>
+                                            {BLOOD_GROUPS.map(group => (
+                                                <option key={group} value={group}>{group}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    {errors.bloodgroup && (
+                                        <div className="flex items-center gap-2 text-red-600 text-sm font-medium animate-in slide-in-from-top-1 duration-200">
+                                            <AlertCircle size={14} />
+                                            <span>{errors.bloodgroup}</span>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="space-y-2">
+                                    <label htmlFor="allergy" className="block text-sm font-semibold text-gray-700">Allergies</label>
+                                    <input
+                                        type="text"
+                                        id="allergy"
                                         name="allergy"
-                                        placeholder="Allergies (optional)"
+                                        placeholder="Optional"
                                         value={formData.allergy}
                                         onChange={handleInputChange}
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-[#40E0D0] focus:ring-4 focus:ring-[#40E0D0]/20 transition-all duration-200 font-medium bg-white"
+                                        className="w-full px-4 py-3.5 border-2 border-gray-200 rounded-2xl focus:border-cyan-500 focus:ring-4 focus:ring-cyan-500/20 transition-all duration-200 font-medium bg-white text-gray-800 placeholder:text-gray-400 hover:border-gray-300"
                                     />
                                 </div>
                             </div>
 
                             <div className="space-y-2">
-                                <input
-                                    type="password"
-                                    name="password"
-                                    placeholder="Password"
-                                    value={formData.password}
-                                    onChange={handleInputChange}
-                                    className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-4 transition-all duration-200 font-medium ${errors.password
-                                        ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50'
-                                        : 'border-gray-200 focus:border-[#40E0D0] focus:ring-[#40E0D0]/20 bg-white'
-                                        }`}
-                                    required
-                                />
+                                <label htmlFor="password" className="block text-sm font-semibold text-gray-700">Password</label>
+                                <div className="relative group">
+                                    <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                                        <Lock className={`transition-colors duration-200 ${errors.password ? 'text-red-500' : 'text-gray-400 group-focus-within:text-cyan-500'}`} size={20} />
+                                    </div>
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        placeholder="At least 7 characters"
+                                        value={formData.password}
+                                        onChange={handleInputChange}
+                                        className={`w-full pl-12 pr-4 py-3.5 border-2 rounded-2xl focus:ring-4 transition-all duration-200 font-medium bg-white text-gray-800 placeholder:text-gray-400 ${errors.password
+                                            ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20'
+                                            : 'border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 hover:border-gray-300'
+                                            }`}
+                                        required
+                                    />
+                                </div>
                                 {errors.password && (
-                                    <p className="text-red-500 text-sm font-medium">{errors.password}</p>
+                                    <div className="flex items-center gap-2 text-red-600 text-sm font-medium animate-in slide-in-from-top-1 duration-200">
+                                        <AlertCircle size={16} />
+                                        <span>{errors.password}</span>
+                                    </div>
                                 )}
                             </div>
 
                             {errors.submit && (
-                                <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4 text-red-700 font-medium">
-                                    {errors.submit}
+                                <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4 flex items-start gap-3 text-red-700 animate-in slide-in-from-top-2 duration-300">
+                                    <AlertCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+                                    <span className="font-medium text-sm">{errors.submit}</span>
                                 </div>
                             )}
 
                             <button
                                 type="submit"
-                                className="w-full bg-[#40E0D0] hover:bg-[#36C7B8] text-white font-bold py-3 px-6 rounded-xl transition-shadow duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                className={`w-full bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] ${isLoading ? 'cursor-wait' : ''
+                                    }`}
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
-                                    <div className="flex items-center justify-center gap-2">
-                                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        Sending OTP...
+                                    <div className="flex items-center justify-center gap-3">
+                                        <Loader2 className="animate-spin" size={20} />
+                                        <span>Sending OTP...</span>
                                     </div>
                                 ) : (
-                                    'Send OTP'
+                                    <span className="flex items-center justify-center gap-2">
+                                        Send OTP
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </span>
                                 )}
                             </button>
 
-                            <div className="text-center pt-4">
-                                <p className="text-gray-600">
-                                    Already have an account?{' '}
-                                    <a href="/login" className="text-[#40E0D0] hover:text-[#36C7B8] font-bold transition-colors duration-200 hover:underline">
-                                        Login
-                                    </a>
-                                </p>
+                            <div className="relative">
+                                <div className="absolute inset-0 flex items-center">
+                                    <div className="w-full border-t border-gray-200"></div>
+                                </div>
+                                <div className="relative flex justify-center text-sm">
+                                    <span className="px-4 bg-white text-gray-500 font-medium">Already have an account?</span>
+                                </div>
+                            </div>
+
+                            <div className="text-center">
+                                <a
+                                    href="/login"
+                                    className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-bold transition-all duration-200 hover:gap-3 group"
+                                >
+                                    <span>Sign in here</span>
+                                    <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
                             </div>
                         </form>
                     </div>
                 ) : (
                     <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <h2 className="text-3xl font-bold text-gray-800 mb-2">Enter OTP</h2>
-                            <p className="text-gray-600">
-                                Enter the 6-digit OTP sent to{' '}
-                                <span className="font-semibold text-[#40E0D0]">{formData.email}</span>
+                        <div className="text-center mb-10">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-br from-cyan-500 to-blue-600 rounded-2xl mb-4 shadow-lg">
+                                <Mail className="text-white" size={32} strokeWidth={2.5} />
+                            </div>
+                            <h2 className="text-4xl font-bold bg-linear-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-2">Verify OTP</h2>
+                            <p className="text-gray-600 text-sm">
+                                We've sent a code to{' '}
+                                <span className="font-semibold text-cyan-600">{formData.email}</span>
                             </p>
                         </div>
 
@@ -532,41 +639,53 @@ export default function SignupPage() {
                                         onChange={(e) => handleOtpChange(index, e.target.value)}
                                         onKeyDown={(e) => handleOtpKeyDown(index, e)}
                                         onPaste={index === 0 ? handleOtpPaste : undefined}
-                                        className={`w-12 h-12 text-center text-lg font-bold border-2 rounded-xl focus:ring-4 transition-all duration-200 ${errors.otp
-                                            ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50'
-                                            : 'border-gray-200 focus:border-[#40E0D0] focus:ring-[#40E0D0]/20 bg-white'
+                                        className={`w-14 h-14 text-center text-2xl font-bold border-2 rounded-2xl focus:ring-4 transition-all duration-200 ${errors.otp
+                                            ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20 bg-red-50 text-red-600'
+                                            : 'border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 bg-white text-gray-800'
                                             }`}
                                     />
                                 ))}
                             </div>
 
                             {errors.otp && (
-                                <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4 text-red-700 font-medium text-center">
-                                    {errors.otp}
+                                <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4 flex items-start gap-3 text-red-700 animate-in slide-in-from-top-2 duration-300">
+                                    <AlertCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
+                                    <span className="font-medium text-sm">{errors.otp}</span>
                                 </div>
                             )}
 
                             <button
                                 type="submit"
-                                className="w-full bg-[#40E0D0] hover:bg-[#36C7B8] text-white font-bold py-3 px-6 rounded-xl transition-shadow duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                className={`w-full bg-linear-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] ${isLoading ? 'cursor-wait' : ''
+                                    }`}
                                 disabled={isLoading}
                             >
                                 {isLoading ? (
-                                    <div className="flex items-center justify-center gap-2">
-                                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                        Verifying...
+                                    <div className="flex items-center justify-center gap-3">
+                                        <Loader2 className="animate-spin" size={20} />
+                                        <span>Verifying...</span>
                                     </div>
                                 ) : (
-                                    'Verify & Create Account'
+                                    <span className="flex items-center justify-center gap-2">
+                                        Verify & Create Account
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </span>
                                 )}
                             </button>
 
                             <button
                                 type="button"
                                 onClick={handleBackToSignup}
-                                className="w-full bg-transparent hover:bg-gray-50 text-[#40E0D0] hover:text-[#36C7B8] font-bold py-3 px-6 rounded-xl border-2 border-[#40E0D0] hover:border-[#36C7B8] transition-shadow duration-200 shadow-lg hover:shadow-xl"
+                                className="w-full bg-white hover:bg-gray-50 text-cyan-600 hover:text-cyan-700 font-bold py-4 px-6 rounded-2xl border-2 border-cyan-500 hover:border-cyan-600 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98]"
                             >
-                                Back to Signup
+                                <span className="flex items-center justify-center gap-2">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                    </svg>
+                                    Back to Signup
+                                </span>
                             </button>
                         </form>
                     </div>
