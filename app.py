@@ -18,6 +18,10 @@ def root():
             "predict-disease": {
                 "base": "/predict-disease/",
                 "predict": "/predict-disease/predict",
-            }
+            },
+            "medical-bot": {
+                "base": "/medical-bot/",
+                "chat": "/medical-bot/chat",
+            },
         },
     }
