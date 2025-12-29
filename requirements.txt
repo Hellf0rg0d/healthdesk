@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+
+# predict-disease
+pandas
+scikit-learn
+lightgbm
+joblib
