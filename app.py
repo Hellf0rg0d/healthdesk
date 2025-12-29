@@ -23,5 +23,9 @@ def root():
                 "base": "/medical-bot/",
                 "chat": "/medical-bot/chat",
             },
+            "medreach": {
+                "base": "/medreach/",
+                "submit": "/medreach/submit",
+            },
         },
     }
