@@ -19,7 +19,7 @@ export default async function Header() {
                         </div>
 
                         <h1 className="text-2xl lg:text-3xl font-bold text-white hover:text-gray-100 transition-colors duration-200 drop-shadow-sm">
-                            MedNarrator
+                            HealthDesk
                         </h1>
                     </div>
                 </Link>

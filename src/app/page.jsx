@@ -6,11 +6,10 @@ import Link from "next/link";
 import { Heart, TrendingUp, Users, BarChart3, Activity, Video, Mic, FileText, MessageSquare, Search, MapPin, Star } from 'lucide-react';
 
 export default async function HomePage() {
-   const session = await auth();
-   if(session?.userName){
-     redirect(`/dashboard/${session.role}/${session.userName}`);
-   }
-
+  const session = await auth();
+  if(session?.userName){
+    redirect(`/dashboard/${session.role}/${session.userName}`);
+  }
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <Header />
