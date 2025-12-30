@@ -24,7 +24,7 @@ export default function PharmacyCards() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-cyan-50/30 to-cyan-50/20 py-16 px-4">
+    <div className="relative min-h-screen bg-linear-to-br from-slate-50 via-cyan-50/30 to-cyan-50/20 py-16 px-4">
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-20 right-10 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl animate-pulse"></div>
