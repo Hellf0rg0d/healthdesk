@@ -47,11 +47,11 @@ async function fetchPatientData(phoneNumber, token) {
             visits: []
         };
 
-        if (conversationData.symptomps && conversationData.date) {
-            const processedVisits = conversationData.date.map((date, index) => {
+        if (conversationData.symptomps) {
+            const processedVisits = conversationData.symptomps.map((_, index) => {
                 return {
                     id: index + 1,
-                    date: date,
+                    date: "2025-12-30",
                     symptoms: conversationData.symptomps?.[index] || [],
                     diagnosis: conversationData.diagnosis?.[index]?.[0] || "No diagnosis",
                     diagnosisList: conversationData.diagnosis?.[index] || [],
@@ -65,6 +65,7 @@ async function fetchPatientData(phoneNumber, token) {
 
             patientInfo.visits = processedVisits;
         }
+
 
         return patientInfo;
     } catch (error) {
@@ -84,17 +85,17 @@ export default async function PatientDetailsPage({ params }) {
     }
 
     const { phone } = await params;
-    
+
     if (role === 'patient' && phno !== phone) {
         notFound();
     }
 
     const patient = await fetchPatientData(phone, token);
-    
+
     if (!patient) {
         notFound();
     }
-    
+
     return (
         <>
             <Header />

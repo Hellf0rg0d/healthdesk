@@ -27,7 +27,7 @@ export default async function HomePage() {
         </h1>
         
         <p className="text-xl text-slate-600 max-w-4xl mx-auto mt-8">
-          Connect with expert doctors, get AI-powered health insights, and manage your prescriptions—all from the comfort of your home.
+          Connect with expert doctors, get AI-powered health insights, and manage your prescriptions all from the comfort of your home.
         </p>
       </section>
       <div className="flex flex-wrap justify-center gap-4 mt-12">
