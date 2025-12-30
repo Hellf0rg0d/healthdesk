@@ -6,7 +6,7 @@ HealthDesk is a comprehensive healthcare platform designed to work in real-world
 
 ---
 
-## ✨ Complete Feature Set
+## ✨ Complete Feature Set.
 
 ### 🔐 **Authentication & Security System**
 
